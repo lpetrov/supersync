@@ -68,7 +68,7 @@ jobs:
         npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GH_PAT }}
-        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        NPM_AUTH_TOKEN: ${{ secrets.GH_PAT }}
 
     - name: Use Node.js for npm
       uses: actions/setup-node@v4
@@ -79,7 +79,7 @@ jobs:
     
     - name: Publish to npm
       run: |
-        echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+        echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
         npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
