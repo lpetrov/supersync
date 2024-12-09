@@ -24,7 +24,9 @@ jobs:
         cache: 'npm'
     
     - name: Install dependencies
-      run: npm ci
+      run: |
+        npm ci
+        npm i -g eslint@8.56.0 eslint-plugin-jest@27.6.0 eslint-config-prettier@9.1.0
     
     - name: Run linting
       run: npm run lint
