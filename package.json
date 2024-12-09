@@ -7,7 +7,7 @@
     "@lyubomirpetrov:registry": "https://npm.pkg.github.com"
   },
   "bin": {
-    "supersync": "./src/index.js"
+    "supersync": "src/index.js"
   },
   "scripts": {
     "start": "node src/index.js",
@@ -67,4 +67,4 @@
     "README.md",
     "LICENSE"
   ]
-} 
+}
