@@ -1,12 +1,8 @@
 {
-  "name": "@lpetrov/supersync",
+  "name": "supersync",
   "version": "1.0.0",
   "description": "A tool to sync local folder to remote SSH destination",
   "main": "src/index.js",
-  "publishConfig": {
-    "@lpetrov:registry": "https://npm.pkg.github.com",
-    "registry": "https://registry.npmjs.org/"
-  },
   "bin": {
     "supersync": "src/index.js"
   },
