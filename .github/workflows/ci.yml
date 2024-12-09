@@ -48,7 +48,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Use Node.js
+    - name: Use Node.js for GitHub Packages
       uses: actions/setup-node@v4
       with:
         node-version: '18.x'
@@ -63,6 +63,24 @@ jobs:
       run: npm run build --if-present
     
     - name: Publish to GitHub Packages
-      run: npm publish
+      run: |
+        echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_PAT }}" > ~/.npmrc
+        npm publish
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ secrets.GH_PAT }}
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+    - name: Use Node.js for npm
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
+        registry-url: 'https://registry.npmjs.org'
+        scope: '@lyubomirpetrov'
+    
+    - name: Publish to npm
+      run: |
+        echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+        npm publish --access public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
