@@ -10,7 +10,7 @@ const { SyncQueue, initialSync } = require('./lib/sync');
 let syncQueue;
 
 function syncFile(filepath, eventType) {
-  return syncQueue.add(filepath, eventType).catch(error => {
+  return syncQueue.add(filepath, eventType).catch(() => {
     // Error already logged in queue processing
   });
 }

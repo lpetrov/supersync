@@ -4,6 +4,7 @@ const { hideBin } = require('yargs/helpers');
 
 // Default configuration with standard ignore patterns
 const DEFAULT_IGNORES = [
+  // eslint-disable-next-line no-useless-escape
   '/(^|[\/\\])\../', // Ignore dot files
   '/node_modules/',   // Ignore node_modules
   '**/*.log',        // Ignore log files
