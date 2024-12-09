@@ -162,6 +162,91 @@ Hooks can be defined in three ways:
 }
 ```
 
+#### Command Execution in Hooks
+
+When using commands in hooks, you have several options for command execution:
+
+1. Shell Commands:
+```json
+{
+  "hooks": {
+    "beforeSync": "npm run build && echo 'Build complete'",
+    "afterSync": {
+      "local": "tar czf backup.tar.gz dist/",
+      "remote": "systemctl restart nginx"
+    }
+  }
+}
+```
+
+2. Multiple Commands with Pipes:
+```json
+{
+  "hooks": {
+    "beforeFileAdd": "cat ${filepath} | grep 'TODO' || true",
+    "afterFileChange": {
+      "remote": "find /var/cache -type f | xargs rm -f"
+    }
+  }
+}
+```
+
+3. Environment Variables:
+```json
+{
+  "hooks": {
+    "beforeSync": "NODE_ENV=production npm run build",
+    "afterSync": {
+      "remote": "export APP_ENV=prod && pm2 reload app"
+    }
+  }
+}
+```
+
+4. Command Substitution:
+```json
+{
+  "hooks": {
+    "afterFileAdd": {
+      "local": "echo \"File added at $(date)\" >> sync.log",
+      "remote": "echo \"${filepath} deployed to $(hostname)\" >> /var/log/deploy.log"
+    }
+  }
+}
+```
+
+5. Conditional Execution:
+```json
+{
+  "hooks": {
+    "beforeFileChange": {
+      "local": "test -f ${filepath} && npm run lint ${filepath} || echo 'File not found'",
+      "remote": "[ -d /var/cache ] && rm -rf /var/cache/*"
+    }
+  }
+}
+```
+
+6. Background Processes:
+```json
+{
+  "hooks": {
+    "afterSync": {
+      "local": "nohup npm run watch &",
+      "remote": "(pm2 reload app && sleep 5 && pm2 reset app) &"
+    }
+  }
+}
+```
+
+Remember:
+- Commands in string format run locally by default
+- Use `local` and `remote` properties to specify execution location
+- Commands are executed in a shell environment
+- Failed commands will stop the hook execution
+- Use `|| true` to ignore command failures
+- Background processes should be managed carefully
+
 #### Available Variables
 
 Hooks can use variables that are replaced with actual values:
