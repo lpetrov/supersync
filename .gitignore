@@ -34,5 +34,3 @@ build/
 *.tmp
 .tmp/
 temp/ 
-
-package-lock.json
