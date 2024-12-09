@@ -25,15 +25,16 @@ function convertGitignorePattern(pattern) {
   // Handle patterns that start with slash
   if (pattern.startsWith('/')) {
     pattern = pattern.slice(1);
+    // Add **/ prefix for absolute paths
+    pattern = `**/${pattern}`;
   }
 
   // Handle directory-only pattern
   if (pattern.endsWith('/')) {
     pattern = `${pattern.slice(0, -1)}/**`;
-    return pattern;
   }
 
-  // If pattern doesn't start with slash or wildcard and isn't a negation pattern
+  // Add **/ prefix for relative paths that don't start with * or /
   if (!isNegation && !pattern.startsWith('*') && !pattern.startsWith('/')) {
     pattern = `**/${pattern}`;
   }

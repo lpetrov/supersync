@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A tool to sync local folder to remote SSH destination",
   "main": "src/index.js",
+  "publishConfig": {
+    "@lyubomirpetrov:registry": "https://npm.pkg.github.com"
+  },
   "bin": {
     "supersync": "./src/index.js"
   },
