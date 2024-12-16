@@ -38,7 +38,7 @@
   "homepage": "https://github.com/lpetrov/supersync#readme",
   "dependencies": {
     "chalk": "^4.1.2",
-    "chokidar": "^3.5.3",
+    "chokidar": "^4.0.1",
     "micromatch": "^4.0.5",
     "rc": "^1.2.8",
     "yargs": "^17.7.2"
